@@ -1,7 +1,6 @@
-from datetime import datetime, UTC
-from functools import partial
-
 from collections import OrderedDict
+from datetime import UTC, datetime
+
 import sqlalchemy as sa
 from sqlalchemy.ext.compiler import compiles
 
@@ -24,7 +23,7 @@ class NoChangesAttribute(Exception):
 
 
 class TransactionBase(object):
-    issued_at = sa.Column(sa.DateTime, default=datetime.now(UTC))
+    issued_at = sa.Column(sa.DateTime, default=lambda: datetime.now(UTC))
 
     @property
     def entity_names(self):
